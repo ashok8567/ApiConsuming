@@ -1,57 +1,53 @@
 package com.api.rest.serviceimpl;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
-import java.util.Optional;
+
+import javax.persistence.PersistenceUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.rest.entity.ApiData;
-import com.api.rest.repository.Repository;
+import com.api.rest.entity.Entries;
+import com.api.rest.repository.ApiRepository;
+import com.api.rest.service.ApiService;
 
 @Service
-public class Serviceimpl  implements Service {
+public class Serviceimpl implements ApiService {
 	
-		 
-		   @Autowired 
-		    Repository repo;
-		 
-		    public ApiData saveEntity(ApiData apiData)
-		    {
-		        return repo.save(apiData);
-		    }
-		 
-		    // Read operation
-		    public List<ApiData> fetchEntityList()
-		    {
-		        return (List<ApiData>)
-		        		repo.findAll();
-		    }
-		 
-		    // Update operation
-		    public ApiData updateEntity(ApiData apiData,
-		                     Long entityId)
-		    {
-		    	ApiData depDB = ((Optional<ApiData>) repo.findById(entityId)).get();
-		 
-		       
-		    }
+	@Autowired
+	private ApiRepository apiRepository ;
+	
+	
+	@Override
+	public Entries saveEntity(Entries entity) {
+		System.out.println("Save Entity");
+		Entries data = apiRepository.save(entity);
+		return data;
+	}
 
-			@Override
-			public Class<? extends Annotation> annotationType() {
-				// TODO Auto-generated method stub
-				return null;
-			}
+	@Override
+	public List<Entries> fetchEntityList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-			@Override
-			public String value() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		}
+	@Override
+	public Entries updateEntity(Entries entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-
-
-
+	@Override
+	public void deleteEntityById(Long entityId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
 }
+
+
+
+

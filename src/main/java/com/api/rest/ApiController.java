@@ -7,11 +7,19 @@ import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.rest.entity.Entries;
+import com.api.rest.serviceimpl.Serviceimpl;
+
 @RestController
 public class ApiController {
+	
+	
+	@Autowired
+	private Serviceimpl serviceimpl; 
 
 	@GetMapping("/getData")
 	public String getData() {
@@ -49,6 +57,15 @@ public class ApiController {
 				//Get the index of the JSON object and print the values as per the index
 				JSONObject jsonobj_1 = (JSONObject)jsonarr_1.get(i);
 				System.out.println("parse ");
+				String description = (String)jsonobj_1.get("Description");
+				String category = (String)jsonobj_1.get("Category");
+				Boolean https = (Boolean)jsonobj_1.get("HTTPS");
+				String auth = (String)jsonobj_1.get("Auth");
+				String api = (String)jsonobj_1.get("API");
+				String cors = (String)jsonobj_1.get("Cors");
+				String link = (String)jsonobj_1.get("Link");
+				Entries data =new Entries(api, description, auth, https, cors, link, category);
+				serviceimpl.saveEntity(data);
 				}
 				
 				
