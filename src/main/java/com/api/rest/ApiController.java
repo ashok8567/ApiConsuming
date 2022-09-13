@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.rest.database.Mysql2CSV;
 import com.api.rest.entity.Entries;
 import com.api.rest.serviceimpl.Serviceimpl;
 
@@ -19,7 +20,10 @@ public class ApiController {
 	
 	
 	@Autowired
-	private Serviceimpl serviceimpl; 
+	private Serviceimpl serviceimpl;
+	
+	@Autowired
+	private Mysql2CSV mysql2CSV;
 
 	@GetMapping("/getData")
 	public String getData() {
@@ -76,5 +80,13 @@ public class ApiController {
 		}
 		return "getData";
 	}
+	
+	@GetMapping("/getdatatocsv")
+public void getDataToCSV() {
+		
+		mysql2CSV.exporttocsv();
+	
+	}
+	
 
 }
